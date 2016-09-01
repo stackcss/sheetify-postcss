@@ -1,0 +1,31 @@
+{
+  "name": "sheetify-postcss",
+  "version": "0.0.0",
+  "description": "postcss transform for sheetify, use all the plugins!",
+  "main": "index.js",
+  "scripts": {
+    "test": "pull-test test/*.js",
+    "example": "browserify example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahdinosaur/sheetify-postcss.git"
+  },
+  "keywords": [],
+  "author": "Mikey <michael.williams@enspiral.com> (http://dinosaur.is)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ahdinosaur/sheetify-postcss/issues"
+  },
+  "homepage": "https://github.com/ahdinosaur/sheetify-postcss#readme",
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "postcss-color-function": "^2.0.1",
+    "pull-test": "^1.2.3",
+    "sheetify": "^5.1.0",
+    "tape": "^4.5.1"
+  },
+  "dependencies": {
+    "postcss": "^5.1.2"
+  }
+}

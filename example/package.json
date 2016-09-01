@@ -1,0 +1,21 @@
+{
+  "browserify": {
+    "transform": [
+      [
+        "sheetify/transform",
+        {
+          "use": [
+            [
+              ".",
+              {
+                "plugins": [
+                  "postcss-color-function"
+                ]
+              }
+            ]
+          ]
+        }
+      ]
+    ]
+  }
+}
