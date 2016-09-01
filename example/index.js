@@ -6,3 +6,5 @@ const prefix = css`
     background: color(red a(90%))
   }
 `
+
+console.log('prefix', prefix)

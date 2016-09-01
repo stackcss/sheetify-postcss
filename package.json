@@ -4,7 +4,10 @@
   "description": "postcss transform for sheetify, use all the plugins!",
   "main": "index.js",
   "scripts": {
-    "test": "pull-test test/*.js",
+    "test:unit": "pull-test test/*.js",
+    "test:deps": "dependency-check . && dependency-check . --extra --no-dev",
+    "test:lint": "standard",
+    "test": "npm-run-all -p test:*",
     "example": "browserify example"
   },
   "repository": {
@@ -20,12 +23,18 @@
   "homepage": "https://github.com/ahdinosaur/sheetify-postcss#readme",
   "devDependencies": {
     "browserify": "^13.1.0",
+    "dependency-check": "^2.6.0",
+    "npm-run-all": "^3.0.0",
     "postcss-color-function": "^2.0.1",
     "pull-test": "^1.2.3",
     "sheetify": "^5.1.0",
+    "standard": "^8.0.0",
     "tape": "^4.5.1"
   },
   "dependencies": {
-    "postcss": "^5.1.2"
+    "defined": "^1.0.0",
+    "postcss": "^5.1.2",
+    "resolve": "^1.1.7",
+    "xtend": "^4.0.1"
   }
 }
