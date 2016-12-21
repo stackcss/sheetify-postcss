@@ -4,7 +4,7 @@
   "description": "postcss transform for sheetify, use all the plugins!",
   "main": "index.js",
   "scripts": {
-    "test:unit": "pull-test test/*.js",
+    "test:unit": "tape test/*.js",
     "test:deps": "dependency-check . && dependency-check . --extra --no-dev",
     "test:lint": "standard",
     "test": "npm-run-all -p test:*",

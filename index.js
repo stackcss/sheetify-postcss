@@ -11,8 +11,17 @@ function transform (filename, source, options, done) {
   const basedir = options.basedir
 
   const plugins = defined(options.plugins, [])
-    .map(plugin => resolve.sync(plugin, { basedir }))
-    .map(require)
+    .map(plugin => {
+      if (typeof plugin === 'string') {
+        plugin = [ plugin ]
+      }
+
+      return {
+        path: resolve.sync(plugin[0], { basedir }),
+        options: plugin[1]
+      }
+    })
+    .map(plugin => require(plugin.path)(plugin.options))
 
   postcss(plugins)
     .process(source, extend({
@@ -23,10 +32,10 @@ function transform (filename, source, options, done) {
         console: false
       }
     }, options))
-  .then(function (result) {
-    done(null, result.css)
-  })
-  .catch(function (err) {
-    done(err)
-  })
+    .then(function (result) {
+      done(null, result.css)
+    })
+    .catch(function (err) {
+      done(err)
+    })
 }
