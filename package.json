@@ -22,13 +22,13 @@
   },
   "homepage": "https://github.com/stackcss/sheetify-postcss#readme",
   "devDependencies": {
-    "browserify": "^13.1.0",
+    "browserify": "^16.0.0",
     "dependency-check": "^2.6.0",
     "npm-run-all": "^3.0.0",
-    "postcss-color-function": "^2.0.1",
+    "postcss-color-function": "^4.0.1",
     "pull-test": "^1.2.3",
-    "sheetify": "^5.1.0",
-    "standard": "^8.0.0",
+    "sheetify": "^7.2.0",
+    "standard": "^10.0.3",
     "tape": "^4.5.1"
   },
   "dependencies": {
