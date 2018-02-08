@@ -26,6 +26,7 @@
     "dependency-check": "^2.6.0",
     "npm-run-all": "^3.0.0",
     "postcss-color-function": "^4.0.1",
+    "postcss-import": "^11.0.0",
     "pull-test": "^1.2.3",
     "sheetify": "^7.2.0",
     "standard": "^10.0.3",

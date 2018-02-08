@@ -33,7 +33,18 @@ function transform (filename, source, options, done) {
       }
     }, options))
     .then(function (result) {
-      done(null, result.css)
+      // Collect imported files for watchify
+      const files = [filename]
+      result.messages.forEach(function (msg) {
+        if (msg.type === 'dependency') {
+          files.push(msg.file)
+        }
+      })
+
+      done(null, {
+        css: result.css,
+        files: files
+      })
     })
     .catch(function (err) {
       done(err)
