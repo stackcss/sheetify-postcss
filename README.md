@@ -10,7 +10,7 @@ npm install --save sheetify-postcss
 
 ### programmatic
 
-```
+```js
 const sheetify = require('sheetify/stream')
 const path = require('path')
 
