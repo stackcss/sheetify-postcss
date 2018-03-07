@@ -21,7 +21,7 @@ test(function (t) {
     })
   })
 
-  t.test('module should respect postcssrc', function (t) {
+  t.test('module should respect postcssrc config file', function (t) {
     t.plan(2)
 
     sheetifyPostcss('test.css', '.rule {}', { basedir: path.join(__dirname, 'stubs') }, (err, css) => {

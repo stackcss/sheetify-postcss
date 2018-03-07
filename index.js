@@ -40,6 +40,6 @@ function transform (filename, source, options, done) {
   }, done)
 
   function compile (config) {
-    return postcss(config.plugins).process(source, config)
+    return postcss(config.plugins).process(source, extend(ctx, config))
   }
 }
