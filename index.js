@@ -2,6 +2,7 @@ const defined = require('defined')
 const postcss = require('postcss')
 const extend = require('xtend')
 const resolve = require('resolve')
+const postcssrc = require('postcss-load-config')
 
 module.exports = transform
 
@@ -23,19 +24,22 @@ function transform (filename, source, options, done) {
     })
     .map(plugin => require(plugin.path)(plugin.options))
 
-  postcss(plugins)
-    .process(source, extend({
-      sourcemap: true,
-      from: filename,
-      messages: {
-        browser: true,
-        console: false
-      }
-    }, options))
-    .then(function (result) {
-      done(null, result.css)
-    })
-    .catch(function (err) {
-      done(err)
-    })
+  const ctx = extend({
+    sourcemap: true,
+    from: filename,
+    messages: {
+      browser: true,
+      console: false
+    }
+  }, options, {plugins: plugins})
+
+  postcssrc(ctx, basedir).then(compile, function () {
+    return compile(ctx)
+  }).then(function (result) {
+    done(null, result.css)
+  }, done)
+
+  function compile (config) {
+    return postcss(config.plugins).process(source, config)
+  }
 }
