@@ -31,15 +31,18 @@ function transform (filename, source, options, done) {
       browser: true,
       console: false
     }
-  }, options, {plugins: plugins})
+  }, options)
+
+  delete ctx.plugins
 
   postcssrc(ctx, basedir).then(compile, function () {
-    return compile(ctx)
+    return compile({options: ctx})
   }).then(function (result) {
     done(null, result.css)
   }, done)
 
   function compile (config) {
-    return postcss(config.plugins).process(source, extend(ctx, config))
+    return postcss(plugins.concat(config.plugins).filter(Boolean))
+      .process(source, config.options)
   }
 }

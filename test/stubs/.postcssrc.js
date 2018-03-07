@@ -8,8 +8,6 @@ var plugin = postcss.plugin('postcss-plugin', function postcssPlugin () {
   }
 })
 
-module.exports = function (ctx) {
-  return Object.assign({}, ctx, {
-    plugins: [plugin]
-  })
+module.exports = {
+  plugins: [plugin]
 }
