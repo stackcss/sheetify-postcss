@@ -61,6 +61,26 @@ add to your `package.json` `browserify.transform` field:
 }
 ```
 
+### using `.postcssrc`
+
+Options and plugins can be defined using a config file. Uses [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) which supports `postcss` field in `package.json`, an external JSON or YAML (`.postcssrc`) file as well as JS (`.postcssrc.js` and `postcss.config.js`) file format.
+
+```javascript
+// .postcssrc.js
+module.exports = function (ctx) {
+  var plugins = [require('postcss-color-function')]
+
+  if (ctx.env !== 'development') {
+    plugins.push(require('autoprefixer'))
+  }
+
+  return {
+    map: ctx.env === 'development' ? 'inline' : false
+    plugins: plugins
+  }
+}
+```
+
 ## license
 
 The Apache License
