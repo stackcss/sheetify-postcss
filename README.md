@@ -11,7 +11,7 @@ npm install --save sheetify-postcss
 ### programmatic
 
 ```js
-const sheetify = require('sheetify/stream')
+const sheetify = require('sheetify')
 const path = require('path')
 
 const opts = {
@@ -28,7 +28,7 @@ const opts = {
 }
 
 browserify('./entry')
-  .transform('sheetify', opts)
+  .transform(sheetify, opts)
   .bundle()
   .pipe(process.stdout)
 ```
@@ -42,7 +42,7 @@ add to your `package.json` `browserify.transform` field:
   "browserify": {
     "transform": [
       [
-        "sheetify/transform",
+        "sheetify",
         {
           "use": [
             [
