@@ -15,7 +15,7 @@ const sheetify = require('sheetify')
 const path = require('path')
 
 const opts = {
-  use: [
+  transform: [
     [
       'sheetify-postcss', {
         plugins: [
@@ -44,7 +44,7 @@ add to your `package.json` `browserify.transform` field:
       [
         "sheetify",
         {
-          "use": [
+          "transform": [
             [
               "sheetify-postcss",
               {
