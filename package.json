@@ -1,6 +1,6 @@
 {
   "name": "sheetify-postcss",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "postcss transform for sheetify, use all the plugins!",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "defined": "^1.0.0",
-    "postcss": "^6.0.17",
+    "postcss": "^7.0.17",
+    "postcss-load-config": "^2.1.0",
     "resolve": "^1.1.7",
     "xtend": "^4.0.1"
   }

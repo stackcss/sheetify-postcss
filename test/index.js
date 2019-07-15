@@ -1,5 +1,5 @@
-const test = require('tape')
 const path = require('path')
+const test = require('tape')
 const sheetifyPostcss = require('../')
 
 test(function (t) {
@@ -18,6 +18,15 @@ test(function (t) {
     sheetifyPostcss('test.css', '.rule {}', { basedir: __dirname, plugins: [ [ './stubs/postcss-plugin', { has: true } ] ] }, (err, result) => {
       t.equal(err, null)
       t.equal(result.css, '.ok-with-options {}')
+    })
+  })
+
+  t.test('module should respect postcssrc config file', function (t) {
+    t.plan(2)
+
+    sheetifyPostcss('test.css', '.rule {}', { basedir: path.join(__dirname, 'stubs') }, (err, result) => {
+      t.equal(err, null)
+      t.equal(result.css, '.ok-with-postcssrc {}')
     })
   })
 

@@ -10,12 +10,12 @@ npm install --save sheetify-postcss
 
 ### programmatic
 
-```
-const sheetify = require('sheetify/stream')
+```js
+const sheetify = require('sheetify')
 const path = require('path')
 
 const opts = {
-  use: [
+  transform: [
     [
       'sheetify-postcss', {
         plugins: [
@@ -28,7 +28,7 @@ const opts = {
 }
 
 browserify('./entry')
-  .transform('sheetify', opts)
+  .transform(sheetify, opts)
   .bundle()
   .pipe(process.stdout)
 ```
@@ -42,9 +42,9 @@ add to your `package.json` `browserify.transform` field:
   "browserify": {
     "transform": [
       [
-        "sheetify/transform",
+        "sheetify",
         {
-          "use": [
+          "transform": [
             [
               "sheetify-postcss",
               {
@@ -57,6 +57,26 @@ add to your `package.json` `browserify.transform` field:
         }
       ]
     ]
+  }
+}
+```
+
+### using `.postcssrc`
+
+Options and plugins can be defined using a config file. Uses [postcss-load-config](https://github.com/michael-ciniawsky/postcss-load-config) which supports `postcss` field in `package.json`, an external JSON or YAML (`.postcssrc`) file as well as JS (`.postcssrc.js` and `postcss.config.js`) file format.
+
+```javascript
+// .postcssrc.js
+module.exports = function (ctx) {
+  var plugins = [require('postcss-color-function')]
+
+  if (ctx.env !== 'development') {
+    plugins.push(require('autoprefixer'))
+  }
+
+  return {
+    map: ctx.env === 'development' ? 'inline' : false
+    plugins: plugins
   }
 }
 ```

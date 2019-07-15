@@ -2,6 +2,7 @@ const defined = require('defined')
 const postcss = require('postcss')
 const extend = require('xtend')
 const resolve = require('resolve')
+const postcssrc = require('postcss-load-config')
 
 module.exports = transform
 
@@ -23,30 +24,39 @@ function transform (filename, source, options, done) {
     })
     .map(plugin => require(plugin.path)(plugin.options))
 
-  postcss(plugins)
-    .process(source, extend({
-      sourcemap: true,
-      from: filename,
-      messages: {
-        browser: true,
-        console: false
-      }
-    }, options))
-    .then(function (result) {
-      // Collect imported files for watchify
-      const files = [filename]
-      result.messages.forEach(function (msg) {
-        if (msg.type === 'dependency') {
-          files.push(msg.file)
+  const ctx = extend({
+    sourcemap: true,
+    from: filename,
+    messages: {
+      browser: true,
+      console: false
+    }
+  }, options)
+
+  delete ctx.plugins
+
+  postcssrc(ctx, basedir).then(compile, function () {
+    return compile({ options: ctx })
+  }).then(function (result) {
+    done(null, result)
+  }, done)
+
+  function compile (config) {
+    return postcss(plugins.concat(config.plugins || []))
+      .process(source, config.options)
+      .then(function (result) {
+        // Collect imported files for watchify
+        const files = [filename]
+        result.messages.forEach(function (msg) {
+          if (msg.type === 'dependency') {
+            files.push(msg.file)
+          }
+        })
+
+        return {
+          css: result.css,
+          files: files
         }
       })
-
-      done(null, {
-        css: result.css,
-        files: files
-      })
-    })
-    .catch(function (err) {
-      done(err)
-    })
+  }
 }
