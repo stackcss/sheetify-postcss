@@ -14,7 +14,7 @@ function transform (filename, source, options, done) {
   const plugins = defined(options.plugins, [])
     .map(plugin => {
       if (typeof plugin === 'string') {
-        plugin = [ plugin ]
+        plugin = [plugin]
       }
 
       return {
