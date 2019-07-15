@@ -42,7 +42,7 @@ function transform (filename, source, options, done) {
   }, done)
 
   function compile (config) {
-    return postcss(plugins.concat(config.plugins || []))
+    return postcss(plugins.concat(config.plugins).filter(Boolean))
       .process(source, config.options)
       .then(function (result) {
         // Collect imported files for watchify
