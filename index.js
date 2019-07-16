@@ -14,7 +14,7 @@ function transform (filename, source, options, done) {
   const plugins = defined(options.plugins, [])
     .map(plugin => {
       if (typeof plugin === 'string') {
-        plugin = [ plugin ]
+        plugin = [plugin]
       }
 
       return {
@@ -36,13 +36,27 @@ function transform (filename, source, options, done) {
   delete ctx.plugins
 
   postcssrc(ctx, basedir).then(compile, function () {
-    return compile({options: ctx})
+    return compile({ options: ctx })
   }).then(function (result) {
-    done(null, result.css)
+    done(null, result)
   }, done)
 
   function compile (config) {
     return postcss(plugins.concat(config.plugins).filter(Boolean))
       .process(source, config.options)
+      .then(function (result) {
+        // Collect imported files for watchify
+        const files = [filename]
+        result.messages.forEach(function (msg) {
+          if (msg.type === 'dependency') {
+            files.push(msg.file)
+          }
+        })
+
+        return {
+          css: result.css,
+          files: files
+        }
+      })
   }
 }
